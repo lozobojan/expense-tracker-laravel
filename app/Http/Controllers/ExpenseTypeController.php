@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ExpenseType;
 use App\Http\Requests\StoreExpenseTypeRequest;
 use App\Http\Requests\UpdateExpenseTypeRequest;
+use Illuminate\Http\Request;
 
 class ExpenseTypeController extends Controller
 {
@@ -82,5 +83,27 @@ class ExpenseTypeController extends Controller
     public function destroy(ExpenseType $expenseType)
     {
         //
+    }
+
+    public function addRemoveType(Request $request){
+        $type = ExpenseType::query()->findOrFail($request->type_id);
+
+        if($type->isLinkedToCurrentUser()){
+            auth()->user()->expenseTypes()->detach($request->type_id);
+        }else{
+            auth()->user()->expenseTypes()->attach($request->type_id);
+        }
+
+        return response("OK", 200);
+    }
+
+    public function getTypesForUser()
+    {
+        return auth()->user()->expenseTypes;
+    }
+
+    public function getSubtypes(ExpenseType $expenseType)
+    {
+        return $expenseType->subtypes;
     }
 }

@@ -1,0 +1,13 @@
+#selectLimitForm{
+    display: inline;
+}
+.row-total{
+    font-weight: bold;
+    font-size: 16px;
+}
+#logout_button{
+    min-width: 120px;
+}
+.active{
+    border-bottom: 2px solid gray;
+}

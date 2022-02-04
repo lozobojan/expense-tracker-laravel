@@ -20,3 +20,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/reports', [App\Http\Controllers\HomeController::class, 'report'])->name('reports');
+
+Route::resource("/expense", \App\Http\Controllers\ExpenseController::class);
+Route::post('/add-remove-type', [App\Http\Controllers\ExpenseTypeController::class, 'addRemoveType'])->name('add-remove-type');
+Route::get('/get-types-for-user', [App\Http\Controllers\ExpenseTypeController::class, 'getTypesForUser'])->name('get-types-for-user');
+Route::get('/get-subtypes/{expense_type}', [App\Http\Controllers\ExpenseTypeController::class, 'getSubtypes'])->name('get-subtypes');

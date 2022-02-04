@@ -22,4 +22,9 @@ class ExpenseType extends Model
     public function expenses(){
         return $this->hasMany(Expense::class);
     }
+
+    public function isLinkedToCurrentUser()
+    {
+        return $this->users()->where("users.id", auth()->id())->count() > 0;
+    }
 }
