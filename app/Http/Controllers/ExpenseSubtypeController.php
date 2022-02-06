@@ -2,85 +2,75 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ExpenseType;
+use Illuminate\Support\Facades\DB;
 use App\Models\ExpenseSubtype;
-use App\Http\Requests\StoreExpenseSubtypeRequest;
-use App\Http\Requests\UpdateExpenseSubtypeRequest;
+use Illuminate\Http\Request;
 
 class ExpenseSubtypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $expense_subtypes = ExpenseSubtype::latest()->paginate(5);
+
+        return view('expense-subtypes.index',compact('expense_subtypes'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        //
+        $expense_types = ExpenseType::query()->select('id')->pluck('id');
+        return view('expense-subtypes.create', compact('expense_types'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreExpenseSubtypeRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreExpenseSubtypeRequest $request)
+
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'expense_type_id' => 'required',
+        ]);
+
+        ExpenseSubtype::create($request->all());
+
+        return redirect()->route('expense-subtypes.index')
+            ->with('success','Subtype created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ExpenseSubtype  $expenseSubtype
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ExpenseSubtype $expenseSubtype)
+
+    public function show(ExpenseSubtype $expense_subtype)
     {
-        //
+        return view('expense-subtypes.show',compact('expense_subtype'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ExpenseSubtype  $expenseSubtype
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ExpenseSubtype $expenseSubtype)
+
+    public function edit(ExpenseSubtype $expense_subtype)
     {
-        //
+        $expense_types = ExpenseType::query()->select('id')->pluck('id');
+        return view('expense-subtypes.edit',compact('expense_types', 'expense_subtype'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateExpenseSubtypeRequest  $request
-     * @param  \App\Models\ExpenseSubtype  $expenseSubtype
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateExpenseSubtypeRequest $request, ExpenseSubtype $expenseSubtype)
+
+    public function update(Request $request, ExpenseSubtype $expense_subtype)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'expense_type_id' => 'required',
+        ]);
+
+        $expense_subtype->update($request->all());
+
+        return redirect()->route('expense-subtypes.index')
+            ->with('success','Subtype updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ExpenseSubtype  $expenseSubtype
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ExpenseSubtype $expenseSubtype)
+
+    public function destroy(ExpenseSubtype $expense_subtype)
     {
-        //
+        $expense_subtype->delete();
+
+        return redirect()->route('expense-subtypes.index')
+            ->with('success','Subtype deleted successfully');
     }
 }

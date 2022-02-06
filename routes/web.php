@@ -1,5 +1,8 @@
 <?php
 
+
+use App\Http\Controllers\ExpenseSubtypeController;
+use App\Http\Controllers\ExpenseTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +21,6 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource("expense-types", ExpenseTypeController::class);
+Route::resource("expense-subtypes", ExpenseSubtypeController::class);

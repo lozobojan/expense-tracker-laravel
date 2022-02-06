@@ -3,84 +3,71 @@
 namespace App\Http\Controllers;
 
 use App\Models\ExpenseType;
-use App\Http\Requests\StoreExpenseTypeRequest;
-use App\Http\Requests\UpdateExpenseTypeRequest;
+use Illuminate\Http\Request;
 
 class ExpenseTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        $expense_types = ExpenseType::latest()->paginate(5);
+
+        return view('expense-types.index',compact('expense_types'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        //
+        return view('expense-types.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreExpenseTypeRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreExpenseTypeRequest $request)
+
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'color' => 'required',
+        ]);
+
+        ExpenseType::create($request->all());
+
+        return redirect()->route('expense-types.index')
+            ->with('success','Type created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ExpenseType  $expenseType
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ExpenseType $expenseType)
+
+    public function show(ExpenseType $expense_type)
     {
-        //
+        return view('expense-types.show',compact('expense_type'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ExpenseType  $expenseType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ExpenseType $expenseType)
+
+    public function edit(ExpenseType $expense_type)
     {
-        //
+        return view('expense-types.edit',compact('expense_type'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateExpenseTypeRequest  $request
-     * @param  \App\Models\ExpenseType  $expenseType
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateExpenseTypeRequest $request, ExpenseType $expenseType)
+
+    public function update(Request $request, ExpenseType $expense_type)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'color' => 'required',
+        ]);
+
+        $expense_type->update($request->all());
+
+        return redirect()->route('expense-types.index')
+            ->with('success','Type updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ExpenseType  $expenseType
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ExpenseType $expenseType)
+
+    public function destroy(ExpenseType $expense_type)
     {
-        //
+        $expense_type->delete();
+
+        return redirect()->route('expense-types.index')
+            ->with('success','Type deleted successfully');
     }
 }
