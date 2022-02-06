@@ -3,6 +3,7 @@
 @section("page-title","Expense Subtypes")
 
 @section("content")
+
     <div class="row mt-4">
         <div class="col-6 offset-3">
             <h2 class="text-center">Podtipovi Troška</h2>

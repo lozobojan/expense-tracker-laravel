@@ -4,6 +4,7 @@
 
 @section("content")
 
+
     <div class="row text-center">
         <div class="col">
             <h1>{{$expensetype->name}}</h1>

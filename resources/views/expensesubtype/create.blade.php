@@ -5,6 +5,7 @@
 @section("content")
 
     <div class="row">
+
         <div class="col-4 offset-4">
             <h2>Dodavanje tipa troška</h2>
             <form action="{{route("expensesubtype.store")}}" method="POST">

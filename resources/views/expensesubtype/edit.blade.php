@@ -5,6 +5,7 @@
 @section("content")
 
     <div class="row">
+
         <div class="row offset-4">
             <h2>Izmjena podtipa troška</h2>
             <form action="{{ route("expensesubtype.update", ['expensesubtype' => $expensesubtype->id]) }}" method="POST">
