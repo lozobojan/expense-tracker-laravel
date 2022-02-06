@@ -1,5 +1,6 @@
 @extends("layouts.app")
 
+
 @section("page-title","Izmjena podtipa")
 
 @section("content")

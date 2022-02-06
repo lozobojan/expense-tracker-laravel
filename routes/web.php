@@ -5,6 +5,7 @@ use App\Http\Controllers\ExpenseTypeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

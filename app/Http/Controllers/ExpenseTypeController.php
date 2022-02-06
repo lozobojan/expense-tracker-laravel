@@ -9,8 +9,10 @@ use App\Http\Requests\StoreExpenseTypeRequest;
 use App\Http\Requests\UpdateExpenseTypeRequest;
 use Illuminate\Http\Response;
 
+
 class ExpenseTypeController extends Controller
 {
+    
     public function __construct()
     {
         $this->middleware('auth');

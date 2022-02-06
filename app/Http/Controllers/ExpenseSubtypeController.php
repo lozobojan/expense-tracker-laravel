@@ -7,8 +7,10 @@ use App\Http\Requests\StoreExpenseSubtypeRequest;
 use App\Http\Requests\UpdateExpenseSubtypeRequest;
 use App\Models\ExpenseType;
 
+
 class ExpenseSubtypeController extends Controller
 {
+    
     public function __construct()
     {
         $this->middleware('auth');

@@ -1,5 +1,6 @@
 @extends("layouts.app")
 
+
 @section("page-title","Dodavanje troška")
 
 @section("content")
