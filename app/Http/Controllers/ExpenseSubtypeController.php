@@ -50,9 +50,7 @@ class ExpenseSubtypeController extends Controller
 
     public function show(ExpenseSubtype $expensesubtype)
     {
-        if(!$request->expense_type_id){
-            return redirect()->route("expensetype.create");
-        };
+        
         return view("expensesubtype.show",[
             "expensesubtype" => $expensesubtype,
         ]);
