@@ -2,85 +2,80 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Expense;
+use App\Models\ExpenseSubtype;
 use App\Models\ExpenseType;
 use App\Http\Requests\StoreExpenseTypeRequest;
 use App\Http\Requests\UpdateExpenseTypeRequest;
+use Illuminate\Http\Response;
 
 class ExpenseTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //
+        return view('expensetype.index', [
+            "expensetypes"=>ExpenseType::all()
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+
+        return view("expensetype.create");
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreExpenseTypeRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(StoreExpenseTypeRequest $request)
     {
-        //
+        ExpenseType::query()->create([
+            "name"=>$request->name,"color"=>$request->color
+        ]);
+       return  redirect()->route("expensetype.index");
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ExpenseType  $expenseType
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ExpenseType $expenseType)
+
+    public function show(ExpenseType $expensetype)
     {
-        //
+
+        $array = ExpenseSubtype::query()->
+            join("expense_types","expense_types.id","=","expense_subtypes.expense_type_id")->
+            where("expense_types.id","=",$expensetype->id)->
+            select("expense_subtypes.name")->get();
+
+        return view("expensetype.show",[
+            "expensetype" => $expensetype,
+            "array"=>$array
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ExpenseType  $expenseType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ExpenseType $expenseType)
+
+
+    public function edit(ExpenseType $expensetype)
     {
-        //
+        return view("expensetype.edit", [
+            "expensetype" => $expensetype,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateExpenseTypeRequest  $request
-     * @param  \App\Models\ExpenseType  $expenseType
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateExpenseTypeRequest $request, ExpenseType $expenseType)
+
+    public function update(UpdateExpenseTypeRequest $request, ExpenseType $expensetype)
     {
-        //
+        $expensetype->update([
+            "name"=>$request->name,"color"=>$request->color
+        ]);
+        return redirect()->route("expensetype.index");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ExpenseType  $expenseType
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ExpenseType $expenseType)
+
+    public function destroy(ExpenseType $expensetype)
     {
-        //
+
+        $expensetype->delete();
+        return redirect()->route("expensetype.index");
     }
 }

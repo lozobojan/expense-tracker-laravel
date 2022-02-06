@@ -11,7 +11,7 @@ class ExpenseSubtype extends Model
 
     protected $fillable = ["expense_type_id", "name"];
 
-    public function expenseType(){
+     public function expenseType(){
         return $this->belongsTo(ExpenseType::class);
     }
 
