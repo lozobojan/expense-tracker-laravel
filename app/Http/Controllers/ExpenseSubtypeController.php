@@ -39,6 +39,9 @@ class ExpenseSubtypeController extends Controller
 
     public function store(StoreExpenseSubtypeRequest $request)
     {
+        if(!$request->expense_type_id){
+            return redirect()->route("expensetype.create");
+        };
         ExpenseSubtype::query()->create([
             "name"=>$request->name,"expense_type_id"=>$request->expense_type_id
         ]);
@@ -47,6 +50,9 @@ class ExpenseSubtypeController extends Controller
 
     public function show(ExpenseSubtype $expensesubtype)
     {
+        if(!$request->expense_type_id){
+            return redirect()->route("expensetype.create");
+        };
         return view("expensesubtype.show",[
             "expensesubtype" => $expensesubtype,
         ]);

@@ -12,7 +12,7 @@ use Illuminate\Http\Response;
 
 class ExpenseTypeController extends Controller
 {
-    
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -77,7 +77,7 @@ class ExpenseTypeController extends Controller
 
     public function destroy(ExpenseType $expensetype)
     {
-
+        ExpenseSubtype::query()->where("expense_type_id", $expensetype->id)->delete();
         $expensetype->delete();
         return redirect()->route("expensetype.index");
     }

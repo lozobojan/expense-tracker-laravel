@@ -8,7 +8,7 @@
     <div class="row">
 
         <div class="col-4 offset-4">
-            <h2>Dodavanje tipa troška</h2>
+            <h2>Dodavanje podtipa troška</h2>
             <form action="{{route("expensesubtype.store")}}" method="POST">
                 @csrf
 
@@ -19,7 +19,7 @@
                 </select>
 
 
-                <input type="text" name="name" placeholder="Naziv troška">
+                <input type="text" name="name" required placeholder="Podtip troška">
                 <button class="btn btn-success ">Dodaj</button>
             </form>
         </div>

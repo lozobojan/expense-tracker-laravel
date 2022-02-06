@@ -12,7 +12,7 @@
             <form action="{{ route("expensetype.update", ['expensetype' => $expensetype->id]) }}" method="POST">
                 @csrf
                 @method("PUT")
-                <input type="text" name="name" placeholder="Name..." value="{{ $expensetype->name }}" >
+                <input type="text" name="name" required placeholder="Name..." value="{{ $expensetype->name }}" >
                 <input type="color" name="color" vlaue=""{{$expensetype->color}}>
                 <button class="btn btn-success">Potvrdi</button>
             </form>

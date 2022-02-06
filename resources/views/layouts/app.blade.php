@@ -34,10 +34,14 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-                        <li><a href="{{route("expensetype.index")}}" class="me-2">Expense Types</a></li>
-                        <li><a href="{{route("expensesubtype.index")}}" >Expense Subtypes</a></li>
-                    </ul>
+                    @if(Auth::user())
+                        @if(Auth::user()->is_admin)
+                        <ul class="navbar-nav me-auto">
+                            <li><a href="{{route("expensetype.index")}}" class="me-2">Expense Types</a></li>
+                            <li><a href="{{route("expensesubtype.index")}}" >Expense Subtypes</a></li>
+                        </ul>
+                        @endif
+                    @endif
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">

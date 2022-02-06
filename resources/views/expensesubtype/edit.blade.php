@@ -12,7 +12,7 @@
             <form action="{{ route("expensesubtype.update", ['expensesubtype' => $expensesubtype->id]) }}" method="POST">
                 @csrf
                 @method("PUT")
-                <input type="text" name="name" placeholder="Name..." value="{{ $expensesubtype->name }}" >
+                <input type="text" name="name" required placeholder="Name..." value="{{ $expensesubtype->name }}" >
                 <button class="btn btn-success">Potvrdi</button>
             </form>
         </div>
