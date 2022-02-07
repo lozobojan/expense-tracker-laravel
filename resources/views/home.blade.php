@@ -10,7 +10,7 @@
                 <div class="card-body">
 
                     @if(auth()->check())
-                        <p>{{ auth()->user()->is_admin }}</p>
+                        <p>Welcome</p>
                     @endif
 
                 </div>

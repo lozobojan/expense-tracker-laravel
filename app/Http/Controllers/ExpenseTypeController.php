@@ -8,79 +8,77 @@ use App\Http\Requests\UpdateExpenseTypeRequest;
 
 class ExpenseTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        //
+        return view('expense_type.index', [
+            "types" => ExpenseType::all()
+        ]);
+
     }
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('expense_type.create');
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreExpenseTypeRequest  $request
-     * @return \Illuminate\Http\Response
+
      */
     public function store(StoreExpenseTypeRequest $request)
     {
-        //
+        ExpenseType::query()->create(["name" => $request->name, "color" => $request->color]);
+        return redirect()->route("type.index");
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\ExpenseType  $expenseType
-     * @return \Illuminate\Http\Response
+
      */
-    public function show(ExpenseType $expenseType)
+    public function show($id)
     {
-        //
+
+        return view('expense_type.show', [
+            "type" => ExpenseType::query()->findOrFail($id)
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ExpenseType  $expenseType
-     * @return \Illuminate\Http\Response
+
      */
-    public function edit(ExpenseType $expenseType)
+    public function edit($id)
     {
-        //
+        return view('expense_type.edit', [
+            "type" => ExpenseType::query()->findOrFail($id)
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateExpenseTypeRequest  $request
-     * @param  \App\Models\ExpenseType  $expenseType
-     * @return \Illuminate\Http\Response
+
      */
-    public function update(UpdateExpenseTypeRequest $request, ExpenseType $expenseType)
+    public function update(UpdateExpenseTypeRequest $request, $id)
     {
-        //
+        $type = ExpenseType::query()->findOrFail($id);
+        $type->update([
+            "name" => $request->name,
+            "color" => $request->color
+        ]);
+        return redirect()->route("type.index");
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ExpenseType  $expenseType
-     * @return \Illuminate\Http\Response
+
      */
-    public function destroy(ExpenseType $expenseType)
+    public function destroy($id)
     {
-        //
+        ExpenseType::query()->findOrFail($id)->delete();
+        return redirect()->route('type.index');
     }
 }

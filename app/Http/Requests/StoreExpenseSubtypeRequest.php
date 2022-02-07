@@ -13,7 +13,7 @@ class StoreExpenseSubtypeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,16 @@ class StoreExpenseSubtypeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "name" => ["required", "max: 255", "string"],
+//            "expense_type_id" => ["required", "exists:expense_types_id"]
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => "Naziv je obavezno polje",
+//            'expense_type_id.required' => "Tip troška je obavezno polje"
         ];
     }
 }

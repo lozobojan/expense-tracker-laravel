@@ -13,7 +13,7 @@ class StoreExpenseTypeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class StoreExpenseTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "name" => ["required", "max: 255", "string"],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => "Naziv je obavezno polje"
         ];
     }
 }
