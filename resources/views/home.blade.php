@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section("page-title","Expense Tracker")
+
 @section('content')
 <div class="container">
     <div class="row">

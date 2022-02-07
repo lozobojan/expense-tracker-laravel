@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ExpenseSubtypeController;
+use App\Http\Controllers\ExpenseTypeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +26,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/reports', [App\Http\Controllers\HomeController::class, 'report'])->name('reports');
 
 Route::resource("/expense", \App\Http\Controllers\ExpenseController::class);
+Route::resource('/expense-type', \App\Http\Controllers\ExpenseTypeController::class);
+Route::resource('/expense-subtype', \App\Http\Controllers\ExpenseSubTypeController::class);
 Route::post('/add-remove-type', [App\Http\Controllers\ExpenseTypeController::class, 'addRemoveType'])->name('add-remove-type');
 Route::get('/get-types-for-user', [App\Http\Controllers\ExpenseTypeController::class, 'getTypesForUser'])->name('get-types-for-user');
 Route::get('/get-subtypes/{expense_type}', [App\Http\Controllers\ExpenseTypeController::class, 'getSubtypes'])->name('get-subtypes');

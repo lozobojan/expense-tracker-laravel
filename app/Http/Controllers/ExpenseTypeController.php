@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Expense;
 use App\Models\ExpenseType;
+use App\Models\ExpenseSubtype;
 use App\Http\Requests\StoreExpenseTypeRequest;
 use App\Http\Requests\UpdateExpenseTypeRequest;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ExpenseTypeController extends Controller
 {
@@ -16,7 +18,9 @@ class ExpenseTypeController extends Controller
      */
     public function index()
     {
-        //
+        return view("expenseType.index", [
+            "expenseType" => ExpenseType::all()
+        ]);
     }
 
     /**
@@ -26,7 +30,7 @@ class ExpenseTypeController extends Controller
      */
     public function create()
     {
-        //
+        return view("expenseType.create");
     }
 
     /**
@@ -37,7 +41,11 @@ class ExpenseTypeController extends Controller
      */
     public function store(StoreExpenseTypeRequest $request)
     {
-        //
+        ExpenseType::query()->create([
+            "name"=>$request->name,
+            "color"=>$request->color
+        ]);
+        return redirect()->route("expenseType.index");
     }
 
     /**
@@ -48,7 +56,15 @@ class ExpenseTypeController extends Controller
      */
     public function show(ExpenseType $expenseType)
     {
-        //
+        $subtypes = ExpenseSubtype::query()->
+        join("expense_types","expense_types.id","=","expense_subtypes.expense_type_id")->
+        where("expense_types.id","=",$expenseType->id)->
+        select("expense_subtypes.name")->get();
+
+        return view("expenseType.show", [
+            "expenseType" => $expenseType,
+            "subtypes" => $subtypes
+        ]);
     }
 
     /**
@@ -59,7 +75,9 @@ class ExpenseTypeController extends Controller
      */
     public function edit(ExpenseType $expenseType)
     {
-        //
+        return view("expenseType.edit", [
+            "expenseType" => $expenseType
+        ]);
     }
 
     /**
@@ -71,9 +89,12 @@ class ExpenseTypeController extends Controller
      */
     public function update(UpdateExpenseTypeRequest $request, ExpenseType $expenseType)
     {
-        //
+        $expenseType->update([
+            "name"=>$request->name,
+            "color"=>$request->color
+        ]);
+        return redirect()->route("expenseType.index");
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -82,7 +103,9 @@ class ExpenseTypeController extends Controller
      */
     public function destroy(ExpenseType $expenseType)
     {
-        //
+        ExpenseSubtype::query()->where("expense_type_id", $expenseType->id)->delete();
+        $expenseType->delete();
+        return redirect()->route("expenseType.index");
     }
 
     public function addRemoveType(Request $request){
