@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class ExpenseTypeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +21,9 @@ class ExpenseTypeController extends Controller
      */
     public function index()
     {
-        //
+        $expenseTypes = ExpenseType::all();
+
+        return view('expense-type.index', ['expense_types' => $expenseTypes]);
     }
 
     /**
@@ -37,7 +44,12 @@ class ExpenseTypeController extends Controller
      */
     public function store(StoreExpenseTypeRequest $request)
     {
-        //
+        $expenseType = ExpenseType::create([
+            'name' => $request->name,
+            'color' => $request->color
+        ]);
+
+        return redirect()->route('expense-type.index');
     }
 
     /**
@@ -59,7 +71,7 @@ class ExpenseTypeController extends Controller
      */
     public function edit(ExpenseType $expenseType)
     {
-        //
+        return view('expense-type.update', ['expense_type' => $expenseType]);
     }
 
     /**
@@ -71,7 +83,12 @@ class ExpenseTypeController extends Controller
      */
     public function update(UpdateExpenseTypeRequest $request, ExpenseType $expenseType)
     {
-        //
+        $expenseType->update([
+            'name' => $request->name,
+            'color' => $request->color
+        ]);
+
+        return redirect()->route('expense-type.index');
     }
 
     /**
@@ -82,7 +99,9 @@ class ExpenseTypeController extends Controller
      */
     public function destroy(ExpenseType $expenseType)
     {
-        //
+        $expenseType->delete();
+
+        return redirect()->route('expense-type.index');
     }
 
     public function addRemoveType(Request $request){

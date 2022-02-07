@@ -26,3 +26,5 @@ Route::resource("/expense", \App\Http\Controllers\ExpenseController::class);
 Route::post('/add-remove-type', [App\Http\Controllers\ExpenseTypeController::class, 'addRemoveType'])->name('add-remove-type');
 Route::get('/get-types-for-user', [App\Http\Controllers\ExpenseTypeController::class, 'getTypesForUser'])->name('get-types-for-user');
 Route::get('/get-subtypes/{expense_type}', [App\Http\Controllers\ExpenseTypeController::class, 'getSubtypes'])->name('get-subtypes');
+Route::resource('/expense-type', App\Http\Controllers\ExpenseTypeController::class);
+Route::resource('/expense-subtype', App\Http\Controllers\ExpenseSubtypeController::class);

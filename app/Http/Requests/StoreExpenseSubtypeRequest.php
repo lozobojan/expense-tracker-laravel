@@ -13,7 +13,7 @@ class StoreExpenseSubtypeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreExpenseSubtypeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'expense_type_id' => ['required', 'integer']
         ];
     }
 }

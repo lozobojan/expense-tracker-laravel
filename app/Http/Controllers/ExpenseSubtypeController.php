@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ExpenseSubtype;
+use App\Models\ExpenseType;
 use App\Http\Requests\StoreExpenseSubtypeRequest;
 use App\Http\Requests\UpdateExpenseSubtypeRequest;
 
@@ -15,7 +16,13 @@ class ExpenseSubtypeController extends Controller
      */
     public function index()
     {
-        //
+        $expenseSubtypes = ExpenseSubtype::all();
+        $expenseTypes = ExpenseType::all();
+
+        return view('expense-subtype.index', [
+            'expense_subtypes' => $expenseSubtypes,
+            'expense_types' => $expenseTypes
+        ]); 
     }
 
     /**
@@ -36,7 +43,12 @@ class ExpenseSubtypeController extends Controller
      */
     public function store(StoreExpenseSubtypeRequest $request)
     {
-        //
+        $expenseSubtype = ExpenseSubtype::create([
+            'name' => $request->name,
+            'expense_type_id' => $request->expense_type_id
+        ]);
+
+        return redirect()->route('expense-subtype.index');
     }
 
     /**
@@ -58,7 +70,12 @@ class ExpenseSubtypeController extends Controller
      */
     public function edit(ExpenseSubtype $expenseSubtype)
     {
-        //
+        $expenseTypes = ExpenseType::all();
+
+        return view('expense-subtype.update', [
+            'expense_subtype' => $expenseSubtype,
+            'expense_types' => $expenseTypes
+        ]);
     }
 
     /**
@@ -70,7 +87,10 @@ class ExpenseSubtypeController extends Controller
      */
     public function update(UpdateExpenseSubtypeRequest $request, ExpenseSubtype $expenseSubtype)
     {
-        //
+        $expenseSubtype->update([
+            'name' => $request->name,
+            'expense_type_id' => $request->expense_type_id
+        ]);
     }
 
     /**
@@ -81,6 +101,8 @@ class ExpenseSubtypeController extends Controller
      */
     public function destroy(ExpenseSubtype $expenseSubtype)
     {
-        //
+        $expenseSubtype->delete();
+
+        return redirect()->route('expense-subtype.index');
     }
 }
