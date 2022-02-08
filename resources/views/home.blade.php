@@ -50,6 +50,15 @@
             </form>
         </div>
 
+        <div class="col-12 text-center">
+            <a href="{{ route('expense_type.index') }}">
+                <button class="button btn-primary">Manage types</button>
+            </a>
+            <a href="{{ route('expense_subtype.index') }}">
+                <button class="button btn-primary">Manage subtypes</button>
+            </a>
+        </div>
+
     </div>
 </div>
 @endsection
