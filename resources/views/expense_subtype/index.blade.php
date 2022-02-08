@@ -14,7 +14,7 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>
+                                    <th>Podtip troška</th>
                                 </tr>
                                 </thead>
                                 <tbody>

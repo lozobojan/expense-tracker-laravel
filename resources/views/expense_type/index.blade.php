@@ -14,8 +14,8 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Color</th>
+                                    <th>Tip troška</th>
+                                    <th>Boja</th>
                                 </tr>
                                 </thead>
                                 <tbody>
