@@ -1,6 +1,6 @@
 async function displayChart(){
 
-    let response = await fetch("./expenses/dashboard_chart.php");
+    let response = await fetch("/home/get-chart-data");
     let responseJSON = await response.json();
 
     const ctx = document.getElementById('pieChart');

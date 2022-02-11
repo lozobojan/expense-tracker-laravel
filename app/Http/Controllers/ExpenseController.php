@@ -32,11 +32,14 @@ class ExpenseController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreExpenseRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreExpenseRequest $request)
     {
-        //
+        Expense::query()->create(array_merge(
+            ["user_id" => auth()->id()], $request->validated()
+        ));
+        return redirect()->back(201);
     }
 
     /**

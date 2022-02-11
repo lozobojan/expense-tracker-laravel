@@ -13,7 +13,7 @@ class StoreExpenseRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,19 @@ class StoreExpenseRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "amount" => ["required", "numeric", "min:1"],
+            "date" => ["required", "date"],
+            "expense_type_id" => ["required", "exists:expense_types,id"],
+            "expense_subtype_id" => ["nullable", "exists:expense_subtypes,id"],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            "amount.required" => "Iznos je obavezno polje",
+            "amount.number" => "Iznos mora biti broj",
+            "amount.min" => "Minimalni iznos je :min"
         ];
     }
 }

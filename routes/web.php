@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,3 +27,6 @@ Route::resource("/expense", \App\Http\Controllers\ExpenseController::class);
 Route::post('/add-remove-type', [App\Http\Controllers\ExpenseTypeController::class, 'addRemoveType'])->name('add-remove-type');
 Route::get('/get-types-for-user', [App\Http\Controllers\ExpenseTypeController::class, 'getTypesForUser'])->name('get-types-for-user');
 Route::get('/get-subtypes/{expense_type}', [App\Http\Controllers\ExpenseTypeController::class, 'getSubtypes'])->name('get-subtypes');
+Route::get('/home/get-chart-data', [\App\Http\Controllers\HomeController::class, 'getChartData'])->name('get-chart-data');
+Route::get('/reports', [ReportController::class, "index"])->name("reports");
+Route::post('/reports', [ReportController::class, "generateReport"])->name("generate-report");

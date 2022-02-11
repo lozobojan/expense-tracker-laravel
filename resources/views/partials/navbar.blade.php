@@ -10,7 +10,7 @@
                     <a class="nav-link @if(\Illuminate\Support\Facades\Route::currentRouteName() == "home") active @endif" aria-current="page" href="{{ route("home") }}">Početna</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @if(\Illuminate\Support\Facades\Route::currentRouteName() == "reports") active @endif" aria-current="page" href="{{ route("reports") }}">Izvještaji</a>
+                    <a class="nav-link @if(request()->is("reports")) active @endif" aria-current="page" href="{{ route("reports") }}">Izvještaji</a>
                 </li>
             </ul>
         </div>

@@ -18,7 +18,6 @@
             @endforeach
 
         </div>
-
         <div class="col-9">
             <h5>Dodavanje novog troška</h5>
             <form action="{{ route("expense.store") }}" method="POST">
@@ -49,16 +48,68 @@
                 </div>
             </form>
         </div>
-
     </div>
+
+    <div class="row">
+        <div class="col-3 pt-5">
+            <canvas id="pieChart" width="400" height="400"></canvas>
+            <h6 class="text-end">Ukupno: <span id="expensesTotal"></span> €</h6>
+        </div>
+
+        <div class="col-9 table-responsive">
+            <h5>
+                Poslednjih
+                <form action="{{ route('home') }}" method="GET" id="selectLimitForm">
+                    <select name="limit" id="selectLimit" onchange="changeLimit()">
+                        @foreach($lengths as $key => $l)
+                            <option value="{{ $l }}"
+                                    @if(request()->has('limit') && request()->get("limit") == $l) selected @endif
+                            >{{ $key }}</option>
+                        @endforeach
+                    </select>
+                </form>
+                troškova
+            </h5>
+            <table class="table table-stripped table-hover mt-3" >
+                <thead>
+                <tr>
+                    <th>Iznos</th>
+                    <th>Datum</th>
+                    <th>Tip</th>
+                    <th>Podtip</th>
+                    <th>Broj fajlova</th>
+                    <th>Pridruženi fajlovi</th>
+                    <th>Dodaj fajl</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                @foreach($expenses as $expense)
+                    <tr>
+                        <td>{{ number_format($expense->amount, 2) }}</td>
+                        <td>{{ $expense->date_formatted }}</td>
+                        <td>{{ $expense->type->name }}</td>
+                        <td>{{ $expense->subtype->name ?? ""}}</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td></td>
+                    </tr>
+                @endforeach
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
 @endsection
 
 @section("additional_scripts")
+    <script src="{{ asset("js/dashboard_chart.js") }}"></script>
     <script>
         window.addEventListener("load", () => {
             loadTypes();
-            // displayChart();
+            displayChart();
         });
     </script>
 @endsection
