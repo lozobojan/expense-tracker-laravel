@@ -8,35 +8,25 @@ use App\Http\Requests\UpdateAttachmentRequest;
 
 class AttachmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreAttachmentRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(StoreAttachmentRequest $request)
     {
-        //
+        $newFilePath = $request->file("fileToUpload")->store("uploads");
+        Attachment::query()->create(
+            array_merge(["file_path" => $newFilePath], $request->validated())
+        );
+        return redirect()->back();
     }
 
     /**

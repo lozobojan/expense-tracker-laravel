@@ -42,12 +42,12 @@ async function loadTypes(){
 }
 
 async function showAttachments(expense_id){
-    let response = await fetch("./expenses/get_attachments.php?expense_id="+expense_id);
-    let attachments = await response.json();
+    let response = await fetch("/expense/"+expense_id+"/attachments");
+    let responseJSON = await response.json();
 
     let tableBody = "";
-    attachments.forEach((attachment) => {
-        let downloadBtn = `<a download href="${attachment.file_path}" class="btn btn-sm btn-primary" >preuzmi</a>`;
+    responseJSON.attachments.forEach((attachment) => {
+        let downloadBtn = `<a download href="${attachment.download_file_path}" class="btn btn-sm btn-primary" >preuzmi</a>`;
         tableBody += `<tr><td>${attachment.description}</td><td>${downloadBtn}</td></tr>`;
     });
 

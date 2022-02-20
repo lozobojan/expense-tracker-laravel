@@ -86,4 +86,11 @@ class ExpenseController extends Controller
     {
         //
     }
+
+    public function getAttachments(Expense $expense)
+    {
+        return [
+            "attachments" => $expense->attachments
+        ];
+    }
 }

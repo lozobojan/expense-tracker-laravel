@@ -13,7 +13,7 @@ class StoreAttachmentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreAttachmentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "description" => ["nullable", "max:255"],
+            "expense_id" => ["required", "integer", "exists:expenses,id"]
         ];
     }
 }

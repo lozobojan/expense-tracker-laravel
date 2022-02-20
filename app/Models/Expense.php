@@ -11,6 +11,9 @@ class Expense extends Model
     protected $guarded = ["id"];
     protected $dates = ["created_at", "updated_at", "date"];
     const DATE_FORMAT = "d.m.Y";
+    const API_PER_PAGE = 2;
+
+    protected $with = ["type"];
 
     public function user(){
         return $this->belongsTo(User::class);
@@ -31,5 +34,10 @@ class Expense extends Model
     public function getDateFormattedAttribute()
     {
         return $this->date->format(self::DATE_FORMAT);
+    }
+
+    public function getAttachmentsCountAttribute()
+    {
+        return $this->attachments()->count();
     }
 }

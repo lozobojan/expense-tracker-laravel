@@ -90,9 +90,9 @@
                         <td>{{ $expense->date_formatted }}</td>
                         <td>{{ $expense->type->name }}</td>
                         <td>{{ $expense->subtype->name ?? ""}}</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td></td>
+                        <td>{{ $expense->attachments_count }}</td>
+                        <td><a class="btn btn-primary btn-sm @if($expense->attachments_count == 0) disabled @endif " onclick='showAttachments({{ $expense->id }})' >prikaži</a></td>
+                        <td><a class="btn btn-success btn-sm" onclick='addNewAttachment({{ $expense->id }})' >dodaj</a></td>
                     </tr>
                 @endforeach
 
@@ -102,6 +102,10 @@
     </div>
 
 </div>
+
+@include('partials.new_attachment_modal')
+@include('partials.attachments_modal')
+
 @endsection
 
 @section("additional_scripts")

@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AttachmentController;
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,10 +26,13 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/reports', [App\Http\Controllers\HomeController::class, 'report'])->name('reports');
 
-Route::resource("/expense", \App\Http\Controllers\ExpenseController::class);
+Route::resource("/expense", ExpenseController::class);
 Route::post('/add-remove-type', [App\Http\Controllers\ExpenseTypeController::class, 'addRemoveType'])->name('add-remove-type');
 Route::get('/get-types-for-user', [App\Http\Controllers\ExpenseTypeController::class, 'getTypesForUser'])->name('get-types-for-user');
 Route::get('/get-subtypes/{expense_type}', [App\Http\Controllers\ExpenseTypeController::class, 'getSubtypes'])->name('get-subtypes');
-Route::get('/home/get-chart-data', [\App\Http\Controllers\HomeController::class, 'getChartData'])->name('get-chart-data');
+Route::get('/home/get-chart-data', [HomeController::class, 'getChartData'])->name('get-chart-data');
 Route::get('/reports', [ReportController::class, "index"])->name("reports");
 Route::post('/reports', [ReportController::class, "generateReport"])->name("generate-report");
+
+Route::resource("/attachment", AttachmentController::class);
+Route::get("expense/{expense}/attachments", [ExpenseController::class, "getAttachments"]);
