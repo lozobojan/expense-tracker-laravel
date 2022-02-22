@@ -31,8 +31,10 @@ Route::group([
 
 });
 
-
-Route::apiResource('/expense', ExpenseController::class);
+Route::group(['middleware' => 'auth'], function(){
+    Route::apiResource('/expense', ExpenseController::class);
+    Route::apiResource('/attachment', \App\Http\Controllers\AttachmentController::class);
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

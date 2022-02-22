@@ -23,10 +23,14 @@ class AttachmentController extends Controller
     public function store(StoreAttachmentRequest $request)
     {
         $newFilePath = $request->file("fileToUpload")->store("uploads");
-        Attachment::query()->create(
+        $attachment = Attachment::query()->create(
             array_merge(["file_path" => $newFilePath], $request->validated())
         );
-        return redirect()->back();
+        if($request->expectsJson()){
+            return response($attachment, 201);
+        }else{
+            return redirect()->back();
+        }
     }
 
     /**
