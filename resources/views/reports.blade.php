@@ -73,6 +73,19 @@
                             <button class="btn btn-success w-100">Eksportuj u XLSX</button>
                         </form>
                     </div>
+                    <div class="col-9">
+                        <form action="{{ route('send-email-report') }}" method="POST">
+                            @csrf
+                            <div class="row">
+                                <div class="col-8">
+                                    <input type="email" name="email" class="form-control" placeholder="Email...">
+                                </div>
+                                <div class="col-4">
+                                    <button class="btn btn-primary">Posalji na mail</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

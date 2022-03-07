@@ -1,0 +1,15 @@
+{
+    "uuid": "375ac3e2-c5fd-46be-b361-6e874b82c347",
+    "displayName": "App\\Mail\\ExpenseReportMail",
+    "job": "Illuminate\\Queue\\CallQueuedHandler@call",
+    "maxTries": null,
+    "maxExceptions": null,
+    "failOnTimeout": false,
+    "backoff": null,
+    "timeout": null,
+    "retryUntil": null,
+    "data": {
+        "commandName": "Illuminate\\Mail\\SendQueuedMailable",
+        "command": "O:34:\"Illuminate\\Mail\\SendQueuedMailable\":13:{s:8:\"mailable\";O:26:\"App\\Mail\\ExpenseReportMail\":29:{s:10:\"reportData\";a:2:{i:0;a:4:{s:6:\"amount\";d:20;s:4:\"date\";s:27:\"2022-02-20T00:00:00.000000Z\";s:4:\"name\";s:7:\"Računi\";s:4:\"type\";N;}i:1;a:4:{s:6:\"amount\";d:20;s:4:\"date\";s:27:\"2022-02-20T00:00:00.000000Z\";s:4:\"name\";s:7:\"Računi\";s:4:\"type\";N;}}s:6:\"locale\";N;s:4:\"from\";a:0:{}s:2:\"to\";a:1:{i:0;a:2:{s:4:\"name\";N;s:7:\"address\";s:19:\"lozobojan@gmail.com\";}}s:2:\"cc\";a:0:{}s:3:\"bcc\";a:0:{}s:7:\"replyTo\";a:0:{}s:7:\"subject\";N;s:8:\"markdown\";N;s:7:\"\u0000*\u0000html\";N;s:4:\"view\";N;s:8:\"textView\";N;s:8:\"viewData\";a:0:{}s:11:\"attachments\";a:0:{}s:14:\"rawAttachments\";a:0:{}s:15:\"diskAttachments\";a:0:{}s:9:\"callbacks\";a:0:{}s:5:\"theme\";N;s:6:\"mailer\";s:4:\"smtp\";s:29:\"\u0000*\u0000assertionableRenderStrings\";N;s:10:\"connection\";N;s:5:\"queue\";N;s:15:\"chainConnection\";N;s:10:\"chainQueue\";N;s:19:\"chainCatchCallbacks\";N;s:5:\"delay\";N;s:11:\"afterCommit\";N;s:10:\"middleware\";a:0:{}s:7:\"chained\";a:0:{}}s:5:\"tries\";N;s:7:\"timeout\";N;s:17:\"shouldBeEncrypted\";b:0;s:10:\"connection\";N;s:5:\"queue\";N;s:15:\"chainConnection\";N;s:10:\"chainQueue\";N;s:19:\"chainCatchCallbacks\";N;s:5:\"delay\";N;s:11:\"afterCommit\";N;s:10:\"middleware\";a:0:{}s:7:\"chained\";a:0:{}}"
+    }
+}

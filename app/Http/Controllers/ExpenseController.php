@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ExpenseAdded;
 use App\Models\Expense;
 use App\Http\Requests\StoreExpenseRequest;
 use App\Http\Requests\UpdateExpenseRequest;
+use App\Notifications\ExpenseAddedNotification;
 
 class ExpenseController extends Controller
 {
@@ -36,9 +38,10 @@ class ExpenseController extends Controller
      */
     public function store(StoreExpenseRequest $request)
     {
-        Expense::query()->create(array_merge(
+        $newExpense = Expense::query()->create(array_merge(
             ["user_id" => auth()->id()], $request->validated()
         ));
+        ExpenseAdded::dispatch($newExpense);
         return redirect()->back(201);
     }
 

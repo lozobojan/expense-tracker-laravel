@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Taggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Expense extends Model
 {
-    use HasFactory;
+    use HasFactory, Taggable, SoftDeletes;
     protected $guarded = ["id"];
     protected $dates = ["created_at", "updated_at", "date"];
     const DATE_FORMAT = "d.m.Y";
@@ -40,4 +42,5 @@ class Expense extends Model
     {
         return $this->attachments()->count();
     }
+
 }

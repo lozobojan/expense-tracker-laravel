@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttachmentController;
+use App\Http\Controllers\ChangeLanguageController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReportController;
@@ -23,6 +24,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/change-language', ChangeLanguageController::class);
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/reports', [App\Http\Controllers\HomeController::class, 'report'])->name('reports');
 
@@ -33,6 +36,8 @@ Route::get('/get-subtypes/{expense_type}', [App\Http\Controllers\ExpenseTypeCont
 Route::get('/home/get-chart-data', [HomeController::class, 'getChartData'])->name('get-chart-data');
 Route::get('/reports', [ReportController::class, "index"])->name("reports");
 Route::post('/reports', [ReportController::class, "generateReport"])->name("generate-report");
+Route::post('/reports/email', [ReportController::class, "sendEmailReport"])->name("send-email-report");
 
 Route::resource("/attachment", AttachmentController::class);
 Route::get("expense/{expense}/attachments", [ExpenseController::class, "getAttachments"]);
+

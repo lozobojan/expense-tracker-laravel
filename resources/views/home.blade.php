@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-3">
-            <h5>Troškovi koje pratite</h5>
+            <h5>{{ __("dashboard.Tracked expenses") }}</h5>
 
             @foreach($expense_types as $type)
                 <div class="row">
@@ -19,7 +19,7 @@
 
         </div>
         <div class="col-9">
-            <h5>Dodavanje novog troška</h5>
+            <h5>{{ __("dashboard.Add new expense") }}</h5>
             <form action="{{ route("expense.store") }}" method="POST">
                 @csrf
                 <div class="row">

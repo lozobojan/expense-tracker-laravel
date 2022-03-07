@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ExpenseReportMail;
 use App\Models\Expense;
 use App\Models\ExpenseType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 class ReportController extends Controller
 {
@@ -42,11 +45,17 @@ class ReportController extends Controller
                 $query->select(["amount", "date", "name"]);
             })
             ->get();
-
+        Session::put('reportData', $data->toArray());
         return view("reports", [
             "data" => $data,
             "types" => ExpenseType::all(),
             "filters" => $request->except(["_token"])
         ]);
+    }
+
+    public function sendEmailReport(Request $request){
+        $data = Session::get('reportData');
+        Mail::to($request->email)->queue(new ExpenseReportMail($data));
+        return redirect()->back()->with(['mailSent' => true]);
     }
 }
