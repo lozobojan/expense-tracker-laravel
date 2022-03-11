@@ -20,10 +20,10 @@ class ExpenseReportMail extends Mailable
      */
     public function __construct($reportData)
     {
-        $this->reportData = $reportData;
+        $ttData;
     }
 
-    /**
+    /**his->reportData = $repor
      * Build the message.
      *
      * @return $this

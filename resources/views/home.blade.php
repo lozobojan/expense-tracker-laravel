@@ -73,6 +73,7 @@
             <table class="table table-stripped table-hover mt-3" >
                 <thead>
                 <tr>
+                    <th>Detalji</th>
                     <th>Iznos</th>
                     <th>Datum</th>
                     <th>Tip</th>
@@ -86,6 +87,7 @@
 
                 @foreach($expenses as $expense)
                     <tr>
+                        <td><a href="{{ route('expense.show', ['expense' => $expense ]) }}" class="btn btn-primary btn-sm">pogledaj</a></td>
                         <td>{{ number_format($expense->amount, 2) }}</td>
                         <td>{{ $expense->date_formatted }}</td>
                         <td>{{ $expense->type->name }}</td>

@@ -17,6 +17,16 @@ class Expense extends Model
 
     protected $with = ["type"];
 
+
+    /** Globalni scope **/
+//    protected static function booted()
+//    {
+//        static::addGlobalScope('forCurrentUser', function ($query) {
+//            $query->where('user_id', '=', auth()->id());
+//        });
+//    }
+
+
     public function user(){
         return $this->belongsTo(User::class);
     }
@@ -42,5 +52,13 @@ class Expense extends Model
     {
         return $this->attachments()->count();
     }
+
+    /** scope method **/
+    // ovo se poziva kao: Expense::query()->forCurrentUser()->get()
+    public function scopeForCurrentUser($query){
+        return $query->where('user_id', '=', auth()->id());
+    }
+
+
 
 }

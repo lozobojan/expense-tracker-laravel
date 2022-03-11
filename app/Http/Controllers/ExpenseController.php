@@ -7,6 +7,9 @@ use App\Models\Expense;
 use App\Http\Requests\StoreExpenseRequest;
 use App\Http\Requests\UpdateExpenseRequest;
 use App\Notifications\ExpenseAddedNotification;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class ExpenseController extends Controller
 {
@@ -49,11 +52,15 @@ class ExpenseController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Expense  $expense
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show(Expense $expense)
     {
-        //
+        // $this->authorize("view", $expense);
+        // abort_if(Gate::denies("view-expense", $expense), ResponseAlias::HTTP_FORBIDDEN);
+        return view('expense.show', [
+            'expense' => $expense
+        ]);
     }
 
     /**
